@@ -19,7 +19,11 @@ write_s3_file = function(x, bucket, key, write_fun, object_arg = 'x', uri_arg = 
     Key = key)
 }
 
-list_contents = function(objects, filter) {
+list_contents = function(objects, filter = NULL) {
   contents = sapply(objects$Contents, function(x) x$Key)
-  contents[grepl(filter, contents)]
+  if(is.null(filter)) {
+    contents
+  } else {
+    contents[grepl(filter, contents)] 
+  }
 }
