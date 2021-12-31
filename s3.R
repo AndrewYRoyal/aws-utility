@@ -27,3 +27,14 @@ list_contents = function(objects, filter = NULL) {
     contents[grepl(filter, contents)] 
   }
 }
+                    
+get_timestamps = function(objects, filter = NULL) {
+  contents = setNames(
+    sapply(objects$Contents, function(x) x$LastModified),
+    sapply(objects$Contents, function(x) x$Key))
+  if(is.null(filter)) {
+    contents
+  } else {
+    contents[grepl(filter, names(contents))] 
+  }
+}
