@@ -3,7 +3,9 @@ read_s3_file = function(bucket, key, read_fun, uri_arg = 'input', ...) {
   file_uri = tempfile()
   read_args[[uri_arg]] = file_uri
   s3$download_file(Bucket = bucket, Key = key, Filename = file_uri)
-  do.call('read_fun', read_args)
+  output = do.call('read_fun', read_args)
+  file.remove(file_uri)  
+  output
 }
 
 write_s3_file = function(x, bucket, key, write_fun, object_arg = 'x', uri_arg = 'file', ...) {
